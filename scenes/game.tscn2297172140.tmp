@@ -310,6 +310,18 @@ sources/0 = SubResource("TileSetAtlasSource_lnu2h")
 
 [sub_resource type="Animation" id="Animation_lnu2h"]
 length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
 
 [sub_resource type="Animation" id="Animation_lbhrr"]
 resource_name = "move"
@@ -399,6 +411,7 @@ position = Vector2(-104, -73)
 [node name="Platforms" type="Node" parent="." unique_id=201347004]
 
 [node name="Platform" parent="Platforms" unique_id=1427045971 instance=ExtResource("3_lnu2h")]
+position = Vector2(-32, -43)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Platforms/Platform" unique_id=662343920]
 libraries/ = SubResource("AnimationLibrary_iywne")
