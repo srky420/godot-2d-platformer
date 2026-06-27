@@ -41,7 +41,10 @@ func _physics_process(delta: float) -> void:
 		else:
 			animated_sprite_2d.play("run")
 	else:
-		animated_sprite_2d.play("jump")
+		if velocity.y > 0:
+			animated_sprite_2d.play("fall")
+		else:
+			animated_sprite_2d.play("jump")
 
 	# Handle movement
 	if direction:
@@ -57,3 +60,6 @@ func _physics_process(delta: float) -> void:
 	# If player falls off, we start coyote timer
 	if was_on_floor and !is_on_floor():
 		coyote_time.start()
+
+	
+	
