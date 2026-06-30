@@ -15,9 +15,15 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
-	if IS_ATTACKING == true:
+	if Input.is_action_just_pressed("attack"):
+		if is_on_floor():
+			attack()
+		else:
+			jump_attack()
+	
+	if IS_ATTACKING:
 		return
-		
+	
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and (is_on_floor() or !coyote_time.is_stopped()):
 		velocity.y = JUMP_VELOCITY
@@ -47,23 +53,21 @@ func _physics_process(delta: float) -> void:
 		coyote_time.start()
 	
 
-func attack() -> bool:
+# Attack animation states
+func attack() -> void:
 	if _anim.get_current_node() == "Movement":
 		_anim.travel("Attack1")
-		return true
 	elif _anim.get_current_node() == "Attack1" and !combo_cooldown.is_stopped():
 		_anim.travel("Attack2")
-		return true
-	return false
+	
+	
+func jump_attack() -> void:
+	if _anim.get_current_node() == "Movement":
+		_anim.travel("JumpAttack")
 	
 
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("attack") and is_on_floor():
-		attack()
-		
-
+# Used in the animation to switch to attacking stance
 func switch_attacking(new_val: bool) -> void:
 	IS_ATTACKING = new_val
-	
 	
 	
