@@ -37,6 +37,9 @@ func transition_to(target_state: State) -> void:
 	if target_state == current_state:
 		return
 	
+	# Debug message
+	print("[StateMachine] ", current_state.name, " -> ", target_state.name)
+	
 	# Call necessary exit and enter funcs 
 	# On old and new states
 	var prev_state = current_state
