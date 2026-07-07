@@ -21,7 +21,7 @@ buses/default_bus_layout="uid://dgfufqwft1vay"
 
 [autoload]
 
-Music="*uid://doqvts5qiod27"
+Music="uid://doqvts5qiod27"
 
 [input]
 

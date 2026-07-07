@@ -31,3 +31,4 @@ func physics_process(delta: float) -> void:
 	# Transition to jump state
 	if Input.is_action_just_pressed("jump"):
 		state_machine.transition_to(jump_state)
+		return

@@ -784,16 +784,24 @@ run_state = NodePath("../Run")
 fall_state = NodePath("../Fall")
 jump_state = NodePath("../Jump")
 
-[node name="Run" type="Node" parent="StateMachine" unique_id=2094518576 node_paths=PackedStringArray("player_sprite", "idle_state", "fall_state", "jump_state")]
+[node name="Run" type="Node" parent="StateMachine" unique_id=2094518576 node_paths=PackedStringArray("idle_state", "fall_state", "jump_state")]
 script = ExtResource("5_smehm")
-speed = 300.0
-player_sprite = NodePath("../../Sprite2D")
+speed = 120.0
 idle_state = NodePath("../Idle")
 fall_state = NodePath("../Fall")
 jump_state = NodePath("../Jump")
 
-[node name="Jump" type="Node" parent="StateMachine" unique_id=644034424]
+[node name="Jump" type="Node" parent="StateMachine" unique_id=644034424 node_paths=PackedStringArray("idle_state", "run_state", "fall_state")]
 script = ExtResource("6_ur7pv")
+idle_state = NodePath("../Idle")
+run_state = NodePath("../Run")
+fall_state = NodePath("../Fall")
+air_speed = 120.0
+jump_force = -300.0
 
-[node name="Fall" type="Node" parent="StateMachine" unique_id=520477890]
+[node name="Fall" type="Node" parent="StateMachine" unique_id=520477890 node_paths=PackedStringArray("idle_state", "run_state", "jump_state")]
 script = ExtResource("7_y4r1p")
+idle_state = NodePath("../Idle")
+run_state = NodePath("../Run")
+jump_state = NodePath("../Jump")
+air_speed = 120.0

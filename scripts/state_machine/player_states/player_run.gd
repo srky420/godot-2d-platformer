@@ -2,7 +2,6 @@ extends State
 
 # Player speed
 @export var speed: float
-@export var player_sprite: Sprite2D
 
 # Other state references
 @export var idle_state: State
@@ -19,10 +18,24 @@ func physics_process(delta: float) -> void:
 	var direction := Input.get_axis("move_left", "move_right")
 	parent.velocity.x = direction * speed
 	parent.move_and_slide()
-	if player_sprite and direction != 0.0:
-		player_sprite.flip_h = direction < 0.0
+	if parent.has_node("Sprite2D") and direction != 0.0:
+		parent.get_node("Sprite2D").flip_h = direction < 0.0
 		
-	# Transition to other states
+	# Transition to fall state
+	if not parent.is_on_floor():
+		state_machine.transition_to(fall_state)
+		return
+		
+	# Transition to idle state
+	if direction == 0:
+		state_machine.transition_to(idle_state)
+		return
+		
+	# Transition to jump state
+	if Input.is_action_just_pressed("jump"):
+		state_machine.transition_to(jump_state)
+		return
+	
 	
 	
 	
