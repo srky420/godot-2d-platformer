@@ -805,3 +805,4 @@ idle_state = NodePath("../Idle")
 run_state = NodePath("../Run")
 jump_state = NodePath("../Jump")
 air_speed = 120.0
+coyote_jump_time = 0.8
