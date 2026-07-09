@@ -4,6 +4,7 @@ extends State
 @export var run_state: State
 @export var fall_state: State
 @export var jump_state: State
+@export var attack_state: State
 
 # Entry
 func enter(prev_state: State) -> void:
@@ -31,4 +32,9 @@ func physics_process(delta: float) -> void:
 	# Transition to jump state
 	if Input.is_action_just_pressed("jump"):
 		state_machine.transition_to(jump_state)
+		return
+		
+	# Transition to attack state
+	if Input.is_action_just_pressed("attack"):
+		state_machine.transition_to(attack_state)
 		return
