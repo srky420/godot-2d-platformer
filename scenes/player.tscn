@@ -733,8 +733,12 @@ tree_root = SubResource("AnimationNodeStateMachine_qhqgy")
 advance_expression_base_node = NodePath("..")
 anim_player = NodePath("../AnimationPlayer")
 
+[node name="AttackCooldown" type="Timer" parent="." unique_id=365399181]
+wait_time = 0.4
+one_shot = true
+
 [node name="ComboCooldown" type="Timer" parent="." unique_id=2041160004]
-wait_time = 0.2
+wait_time = 0.6
 one_shot = true
 
 [node name="StateMachine" type="Node" parent="." unique_id=81232242 node_paths=PackedStringArray("initial_state")]
@@ -750,7 +754,7 @@ attack_state = NodePath("../Attack")
 
 [node name="Run" type="Node" parent="StateMachine" unique_id=2094518576 node_paths=PackedStringArray("idle_state", "fall_state", "jump_state", "attack_state")]
 script = ExtResource("5_smehm")
-speed = 120.0
+speed = 100.0
 idle_state = NodePath("../Idle")
 fall_state = NodePath("../Fall")
 jump_state = NodePath("../Jump")
@@ -761,7 +765,7 @@ script = ExtResource("6_ur7pv")
 idle_state = NodePath("../Idle")
 run_state = NodePath("../Run")
 fall_state = NodePath("../Fall")
-air_speed = 120.0
+air_speed = 100.0
 jump_force = -300.0
 
 [node name="Fall" type="Node" parent="StateMachine" unique_id=520477890 node_paths=PackedStringArray("idle_state", "run_state", "jump_state")]
@@ -770,12 +774,13 @@ idle_state = NodePath("../Idle")
 run_state = NodePath("../Run")
 jump_state = NodePath("../Jump")
 air_speed = 120.0
-coyote_jump_time = 0.8
+coyote_jump_time = 0.1
 
-[node name="Attack" type="Node" parent="StateMachine" unique_id=1611787094 node_paths=PackedStringArray("idle_state", "run_state", "jump_state", "fall_state")]
+[node name="Attack" type="Node" parent="StateMachine" unique_id=1611787094 node_paths=PackedStringArray("idle_state", "run_state", "jump_state", "fall_state", "attack_cooldown", "combo_cooldown")]
 script = ExtResource("7_fjrip")
 idle_state = NodePath("../Idle")
 run_state = NodePath("../Run")
 jump_state = NodePath("../Jump")
 fall_state = NodePath("../Fall")
-attack_cooldown = 0.7
+attack_cooldown = NodePath("../../AttackCooldown")
+combo_cooldown = NodePath("../../ComboCooldown")
