@@ -6,12 +6,8 @@ extends State
 @export var jump_state: State
 @export var fall_state: State
 
-# Attack and combo cooldowns
-@export var attack_cooldown: Timer
-@export var combo_cooldown: Timer
-
-# Combo counter
-var combo_counter: int = 0
+# Can combo flag
+var can_combo_attack: bool
 
 # AnimationTree reference
 var playback: AnimationNodeStateMachinePlayback
@@ -20,10 +16,11 @@ var playback: AnimationNodeStateMachinePlayback
 func enter(prev_state: State) -> void:
 	playback = parent.get_node("AnimationTree")["parameters/playback"]
 	playback.travel("Attack1")
-	attack_cooldown.start()
-	combo_cooldown.start()
 	
 func physics_process(delta: float) -> void:
+	if Input.is_action_just_pressed("attack") and can_combo_attack:
+		playback.travel("Attack2")
+		
 	# Don't allow state swich if player is attacking
 	if is_attacking():
 		return
@@ -52,16 +49,12 @@ func physics_process(delta: float) -> void:
 		state_machine.transition_to(jump_state)
 		return
 
-# Return attacking state based on cooldowns
+# Return true/false based on attacking animation
 func is_attacking() -> bool:
-	if attack_cooldown.is_stopped() and not combo_cooldown.is_stopped():
-		if Input.is_action_just_pressed("attack"):
-			playback.travel("Attack2")
-			attack_cooldown.start()
-			combo_cooldown.start()
-			return true
-	
-	if attack_cooldown.is_stopped() and combo_cooldown.is_stopped():
-		return false
-	
-	return true
+	if playback.get_current_node() == "Attack1" or playback.get_current_node() == "Attack2":
+		return true
+	return false
+
+
+func set_combo_allowed(can_combo: bool):
+	can_combo_attack = can_combo
